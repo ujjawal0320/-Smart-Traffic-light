@@ -12,49 +12,52 @@
 
     
  }
+   
+   .box1, .box2, .box3 {
+   height: 70px;
+   width: 70px;
+   border: 1px solid black;
+   border-radius: 50%;
+   background-color: gray;
+   transition: background-color 0.5s ease;
+   animation-duration: 15s;
+   animation-iteration-count: infinite;
+   
+}
 
- .box1{
-    height: 70px;
-    width: 70px;
-    border: 1px solid black;
-    border-radius: 50%;
-    background-color: gray;
-    
-    
-    /* background-color: red; */
- 
- }
- .box1:hover{
-    background-color: red;
- }
+.box1 {
+   animation-name: redLight ;
+}
 
+.box2 {
+   animation-name: yellowLight ;
+   
+}
 
- .box2{
-    height: 70px;
-    width: 70px;
-    border: 1px solid black;
-    border-radius: 50%;
-    background-color: gray;
-    
+.box3 {
+   animation-name: greenLight;
+   
+}
 
- }
- .box2:hover{
-    background-color: yellow;
- }
+/* Keyframes for each light */
+@keyframes redLight {
+   0%, 0.01% { background-color: gray; }
+   0.01%,33.33%{ background-color: red; }
+   33.34%, 100% { background-color: gray; }
+}
 
- .box3{
-    height: 70px;
-    width: 70px;
-    border: 1px solid black;
-    border-radius: 50%;
-    background-color: gray;
+@keyframes yellowLight {
+   0%, 33.33% { background-color: gray; }
+   33.34%,66.66%  { background-color: yellow; }
+   66.67% ,100% { background-color: gray; }
+}
 
- }
+@keyframes greenLight {
+   0%, 66.66%{ background-color: gray; }
+   66.67%,99.99% { background-color: green; }
+   100% { background-color: gray; }
+}
 
- .box3:hover{
-    background-color: rgb(33, 202, 33);
-
- }
 
  .pole{
     margin-left: 72px;

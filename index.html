@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <title>Smart Traffic Light</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <h2>Smart Traffic Light</h2>
 
-    <div class="trafficlight">
-        <div class="box1"></div>
-        <div class="box2"></div>
-        <div class="box3"></div>
-    </div>
-    <div class="pole"></div>
-    <div class="base"></div>
-    
+  <input type="number" id="vehicleCount" placeholder="Enter vehicle count" min="0" />
+  <button onclick="startSignal()">Start</button>
+
+  <div id="countdown"></div>
+
+  <div class="traffic-light">
+    <div class="light red" id="red"></div>
+    <div class="light yellow" id="yellow"></div>
+    <div class="light green" id="green"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

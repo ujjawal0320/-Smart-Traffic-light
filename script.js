@@ -1,54 +1,61 @@
- const red = document.getElementById("red");
-const yellow = document.getElementById("yellow");
-const green = document.getElementById("green");
-const countdown = document.getElementById("countdown");
+const lightIds = {
+  north: document.getElementById('northLight'),
+  east: document.getElementById('eastLight'),
+  south: document.getElementById('southLight'),
+  west: document.getElementById('westLight')
+};
 
-function setLight(activeLight) {
-  red.classList.remove("active");
-  yellow.classList.remove("active");
-  green.classList.remove("active");
+const countdown = document.getElementById('countdown');
+const directions = ['north', 'east', 'south', 'west'];
+let current = 0;
+let vehicleCounts = {};
 
-  if (activeLight === "red") red.classList.add("active");
-  else if (activeLight === "yellow") yellow.classList.add("active");
-  else if (activeLight === "green") green.classList.add("active");
+function startCycle() {
+  vehicleCounts = {
+    north: parseInt(document.getElementById('north').value) || 0,
+    east: parseInt(document.getElementById('east').value) || 0,
+    south: parseInt(document.getElementById('south').value) || 0,
+    west: parseInt(document.getElementById('west').value) || 0
+  };
+
+  current = 0;
+  runCycle();
 }
 
-function startSignal() {
-  let count = parseInt(document.getElementById("vehicleCount").value) || 0;
+function runCycle() {
+  let dir = directions[current];
+  let baseTime = 3000;
+  let multiplier = 500;
+  let duration = Math.max(4000, baseTime + vehicleCounts[dir] * multiplier);
 
-  // formula: greenTime = 3s + (0.5s * count)
-  let greenTime = 3000 + count * 500;
-  let yellowTime = 2000;
-  let redTime = 3000;
+  for (let d in lightIds) {
+    lightIds[d].classList.remove('green');
+    lightIds[d].classList.add('red');
+  }
 
-  console.log(`Vehicle count: ${count}`);
-  console.log(`Green light duration: ${greenTime / 1000}s`);
+  lightIds[dir].classList.remove('red');
+  lightIds[dir].classList.add('green');
 
-  setLight("green");
-  startCountdown(greenTime / 1000);
+  
+
+  startCountdown(duration / 1000);
 
   setTimeout(() => {
-    setLight("yellow");
-    startCountdown(yellowTime / 1000);
-  }, greenTime);
-
-  setTimeout(() => {
-    setLight("red");
-    startCountdown(redTime / 1000);
-  }, greenTime + yellowTime);
+    current = (current + 1) % directions.length;
+    runCycle();
+  }, duration);
 }
 
 function startCountdown(seconds) {
-  countdown.innerText = `Time Left: ${seconds}s`;
+  countdown.innerText = `⏱️ ${seconds}s remaining`;
   let remaining = seconds;
-
   const timer = setInterval(() => {
     remaining--;
     if (remaining <= 0) {
       clearInterval(timer);
-      countdown.innerText = "";
+      countdown.innerText = '';
     } else {
-      countdown.innerText = `Time Left: ${remaining}s`;
+      countdown.innerText = `⏱️ ${remaining}s remaining`;
     }
   }, 1000);
 }
